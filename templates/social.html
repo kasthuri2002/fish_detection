@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fish Toxin Prediction</title>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+  integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<style>
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+  font-family: sans-serif;
+  background: linear-gradient(135deg, purple 20%, orange 80%);
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  width: 70px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.container li:hover {
+  transform: scale(1.1);
+}
+
+.container li:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  border-radius: 6px;
+  background: #111;
+  transition: all 0.3s ease-in;
+}
+
+.container li:hover:before {
+  transform: rotate(360deg);
+  border-radius: 50%;
+}
+
+.container li a span {
+  font-size: 27px;
+  line-height: 70px;
+  color: whitesmoke;
+  transition: all 0.3s ease-out;
+}
+
+.menu {
+  background: lightgrey;
+  width: 300px;
+  opacity: 0.3;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.menu:hover {
+  transform: translateY(-5px);
+}
+
+.menu .fas {
+  transition: transform 0.2s;
+}
+
+.menu p {
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+.social-lists {
+  background: lightgray;
+  width: 300px;
+  padding: 10px;
+  opacity: 0.3;
+  list-style-type: none;
+  border-radius: 5px;
+  transition: opacity 0.3s ease;
+}
+
+.social-lists:hover {
+  opacity: 1;
+}
+
+.social-lists li {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: padding 0.2s linear;
+}
+
+.social-lists li:hover {
+  background: darkgray;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.social-lists li .fab {
+  margin: 0 10px;
+}
+
+.rotate .fas {
+  transform: rotate(180deg);
+}
+
+.hide {
+  visibility: hidden;
+}
+</style>
+</head>
+<body>
+<ul class="container">
+  <li><a href="#"><span class="fab fa-codepen"></span></a></li>
+  <li><a href="#"><span class="fab fa-github"></span></a></li>
+  <li><a href="#"><span class="fab fa-twitter"></span></a></li>
+  <li><a href="#"><span class="fab fa-instagram"></span></a></li>
+</ul>
+<div class="menu">
+  <p>Social Media</p>
+  <i class="fas fa-angle-down"></i>
+</div>
+<ul class="social-lists hide">
+  <li>
+    <a href="https://www.facebook.com/"><i class="fab fa-facebook" style="color: blue"></i></a>
+    <p>Facebook</p>
+  </li>
+  <li>
+    <a href="https://www.youtube.com/"><i class="fab fa-youtube" style="color: red"></i></a>
+    <p>YouTube</p>
+  </li>
+  <li>
+    <a href="https://twitter.com/"><i class="fab fa-twitter" style="color: blue"></i></a>
+    <p>Twitter</p>
+  </li>
+  <li>
+    <a href="https://www.linkedin.com/"><i class="fab fa-linkedin" style="color: blue"></i></a>
+    <p>LinkedIn</p>
+  </li>
+  <!-- Additional social media links related to fish toxin prediction -->
+  <li>
+    <a href="https://www.researchgate.net/"><i class="fab fa-researchgate" style="color: #00cc99"></i></a>
+    <p>ResearchGate</p>
+  </li>
+  <li>
+    <a href="https://www.academia.edu/"><i class="fab fa-academia" style="color: #ff6600"></i></a>
+    <p>Academia.edu</p>
+  </li>
+  <li>
+    <a href="https://scholar.google.com/"><i class="fab fa-google-plus" style="color: #dd4b39"></i></a>
+    <p>Google Scholar</p>
+  </li>
+</ul>
+
+<script>
+const menuEl = document.querySelector(".menu");
+const menuTextEl = document.querySelector(".menu p");
+const socialListsEl = document.querySelector(".social-lists");
+const liEls = document.querySelectorAll(".social-lists li");
+
+menuEl.addEventListener("click", () => {
+  socialListsEl.classList.toggle("hide");
+  menuEl.classList.toggle("rotate");
+});
+
+liEls.forEach((liEl) => {
+  liEl.addEventListener("click", () => {
+    menuTextEl.innerHTML = liEl.innerHTML;
+    socialListsEl.classList.add("hide");
+    menuEl.classList.toggle("rotate");
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fish Toxin and Disease Prediction</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #007bff;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #prediction-result {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Fish Toxin and Disease Prediction</h1>
+    <form id="prediction-form">
+      <div class="form-group">
+        <label for="fish-species">Fish Species:</label>
+        <select id="fish-species" name="fish-species" required>
+          <option value="">Select Fish Species</option>
+          <option value="Tuna">Tuna</option>
+          <option value="Salmon">Salmon</option>
+          <option value="Trout">Trout</option>
+          <option value="Bass">Bass</option>
+          <option value="Cod">Cod</option>
+          <option value="Mackerel">Mackerel</option>
+          <option value="Haddock">Haddock</option>
+          <option value="Sardine">Sardine</option>
+          <option value="Anchovy">Anchovy</option>
+          <option value="Halibut">Halibut</option>
+        </select>
+      </div>
+      <button type="submit">Predict</button>
+    </form>
+    <div id="prediction-result"></div>
+  </div>
+
+  <script>
+    const fishDetails = {
+      "Tuna": {
+        "family": "Scombridae",
+        "calories": "200 kcal",
+        "toxinLevel": "Low",
+        "disease": "Methylmercury Poisoning",
+        "suitableToEat": "Yes"
+      },
+      "Salmon": {
+        "family": "Salmonidae",
+        "calories": "150 kcal",
+        "toxinLevel": "Low",
+        "disease": "Parasitic Infections",
+        "suitableToEat": "Yes"
+      },
+      "Trout": {
+        "family": "Salmonidae",
+        "calories": "180 kcal",
+        "toxinLevel": "Low",
+        "disease": "Salmon Poisoning Disease",
+        "suitableToEat": "Yes"
+      },
+      "Bass": {
+        "family": "Serranidae",
+        "calories": "160 kcal",
+        "toxinLevel": "Medium",
+        "disease": "Ciguatera Fish Poisoning",
+        "suitableToEat": "No"
+      },
+      "Cod": {
+        "family": "Gadidae",
+        "calories": "170 kcal",
+        "toxinLevel": "Medium",
+        "disease": "Scombroid Poisoning",
+        "suitableToEat": "No"
+      },
+      "Mackerel": {
+        "family": "Scombridae",
+        "calories": "190 kcal",
+        "toxinLevel": "Medium",
+        "disease": "Ciguatera Fish Poisoning",
+        "suitableToEat": "No"
+      },
+      "Haddock": {
+        "family": "Gadidae",
+        "calories": "150 kcal",
+        "toxinLevel": "Medium",
+        "disease": "Scombroid Poisoning",
+        "suitableToEat": "No"
+      },
+      "Sardine": {
+        "family": "Clupeidae",
+        "calories": "130 kcal",
+        "toxinLevel": "High",
+        "disease": "Neurotoxic Shellfish Poisoning",
+        "suitableToEat": "No"
+      },
+      "Anchovy": {
+        "family": "Engraulidae",
+        "calories": "120 kcal",
+        "toxinLevel": "High",
+        "disease": "Neurotoxic Shellfish Poisoning",
+        "suitableToEat": "No"
+      },
+      "Halibut": {
+        "family": "Pleuronectidae",
+        "calories": "180 kcal",
+        "toxinLevel": "Low",
+        "disease": "Scombroid Poisoning",
+        "suitableToEat": "Yes"
+      }
+    };
+
+    document.getElementById('prediction-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var selectedFish = document.getElementById('fish-species').value;
+
+      if (selectedFish) {
+        displayFishDetails(selectedFish);
+      }
+    });
+
+    function displayFishDetails(selectedFish) {
+      var resultContainer = document.getElementById('prediction-result');
+      var details = fishDetails[selectedFish];
+      if (details) {
+        resultContainer.innerHTML = '<h2>Fish Details</h2>' +
+                                    '<p><strong>Family:</strong> ' + details.family + '</p>' +
+                                    '<p><strong>Calories:</strong> ' + details.calories + '</p>' +
+                                    '<p><strong>Toxin Level:</strong> ' + details.toxinLevel + '</p>' +
+                                    '<p><strong>Disease:</strong> ' + details.disease + '</p>' +
+                                    '<p><strong>Suitable to Eat:</strong> ' + details.suitableToEat + '</p>';
+      } else {
+        resultContainer.innerHTML = '<p>No details available for the selected fish.</p>';
+      }
+    }
+  </script>
+</body>
+</html>

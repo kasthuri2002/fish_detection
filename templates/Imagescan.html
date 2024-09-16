@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish Pesticide Level Prediction</title>
+    <style>
+        /* CSS for animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* Updated background animation */
+            background-color: #000; /* Violet background color */
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            color: #333;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+        section {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        h2 {
+            color: #007bff;
+            margin-top: 0;
+        }
+        #scanner {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        #video {
+            width: 100%;
+            border-radius: 10px;
+        }
+        #captureButton, #uploadButton {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        #captureButton:hover, #uploadButton:hover {
+            background-color: #0056b3;
+        }
+        #imagePreview img {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        #predictButton {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            animation: pulse 2s infinite; /* Animation added */
+        }
+        #predictButton:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fish Pesticide Level Prediction</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Scan or Upload Image</h2>
+            <div id="scanner">
+                <video id="video" width="100%" height="auto" autoplay></video>
+                <button id="captureButton">Capture</button>
+            </div>
+            <input type="file" accept="image/*" id="imageUpload" style="display: none;" />
+            <button id="uploadButton">Upload Image</button>
+        </section>
+        <section id="predictionResult" style="display: none;">
+            <h2>Fish Image</h2>
+            <div id="imagePreview"></div>
+            <p id="pesticideLevel"></p>
+            <p id="diseasePrediction"></p>
+            <button id="predictButton">Predict</button> <!-- Added predict button -->
+        </section>
+    </main>
+    <script>
+        const video = document.getElementById('video');
+        const captureButton = document.getElementById('captureButton');
+        const uploadButton = document.getElementById('uploadButton');
+        const imageUpload = document.getElementById('imageUpload');
+        const imagePreview = document.getElementById('imagePreview');
+        const predictionResult = document.getElementById('predictionResult');
+        const pesticideLevel = document.getElementById('pesticideLevel');
+        const diseasePrediction = document.getElementById('diseasePrediction');
+
+        // Access the camera and stream video
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(error => {
+                console.error('Error accessing the camera:', error);
+            });
+
+        // Capture image from camera
+        captureButton.addEventListener('click', () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageDataUrl = canvas.toDataURL('image/jpeg');
+
+            // Save the captured image as a JPG file
+            const a = document.createElement('a');
+            a.href = imageDataUrl;
+            a.download = 'captured_image.jpg';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            displayImage(imageDataUrl);
+        });
+
+        // Display uploaded image
+        imageUpload.addEventListener('change', () => {
+            const file = imageUpload.files[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+                displayImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Show image preview and prediction result
+        function displayImage(imageDataUrl) {
+            imagePreview.innerHTML = `<img src="${imageDataUrl}" alt="Uploaded Image">`;
+            predictionResult.style.display = 'block';
+            // Make prediction here with the image data
+            // Update pesticide level and disease prediction accordingly
+            // pesticideLevel.textContent = 'Predicted Pesticide Level: ...';
+            // diseasePrediction.textContent = 'Predicted Disease: ...';
+        }
+
+        // Show image upload input when "Upload Image" button is clicked
+        uploadButton.addEventListener('click', () => {
+            imageUpload.click();
+        });
+    </script>
+</body>
+</html>

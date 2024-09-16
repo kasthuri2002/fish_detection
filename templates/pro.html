@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Login & Feedback</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+      background-image: url('bacl.jpg');
+      background-repeat: repeat-y;
+      background-position: bottom;
+      background-size: cover;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    form {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 4px;
+      display: none;
+    }
+
+    /* Fish animation */
+    @keyframes swim {
+      0% { transform: translateX(-50px) rotateY(180deg); }
+      50% { transform: translateX(50px) rotateY(0deg); }
+      100% { transform: translateX(-50px) rotateY(180deg); }
+    }
+
+    .fish {
+      position: fixed;
+      bottom:0;
+      left: 0;
+      transform: scaleX(-1);
+      animation: swim 5s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form id="login-form">
+      <h2>User Login</h2>
+      <input type="text" id="name" placeholder="Name" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <button type="submit">Login</button>
+    </form>
+    <form id="feedback-form" style="display: none;">
+      <h2>Leave Feedback</h2>
+      <textarea id="feedback" placeholder="Write your feedback here..." required></textarea>
+      <button type="submit">Submit Feedback</button>
+    </form>
+  </div>
+  <div id="notification"></div>
+  <img src="fish3.jpg" alt="Fish" class="fish">
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      if (name && email) {
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('feedback-form').style.display = 'block';
+        document.getElementById('notification').style.display = 'block';
+        document.getElementById('notification').innerText = `Welcome, ${name} (${email})!`;
+      } else {
+        displayNotification('Please fill in all fields.');
+      }
+    });
+
+    document.getElementById('feedback-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var feedback = document.getElementById('feedback').value;
+      if (feedback) {
+        displayNotification('Feedback submitted successfully!');
+        document.getElementById('feedback-form').reset();
+      } else {
+        displayNotification('Please write your feedback.');
+      }
+    });
+
+    function displayNotification(message) {
+      var notification = document.getElementById('notification');
+      notification.innerText = message;
+      notification.style.display = 'block';
+      setTimeout(function() {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

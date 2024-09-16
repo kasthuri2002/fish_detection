@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fish Pesticide Prediction</title>
+  <style>
+    /* Your CSS styles */
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-image: url("underwater.jpg");
+    }
+
+    header {
+      background-color: #006400;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .menu-bar {
+      background-color: #333;
+      overflow: hidden;
+    }
+
+    .menu-bar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .menu-bar li {
+      float: left;
+    }
+
+    .menu-bar li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    .menu-bar li a:hover {
+      background-color: #111;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="content" id="content"></div>
+  <nav>
+    <div class="nav-main">
+      <div class="nav-header">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </div>
+    </div>
+  </nav>
+  <div class="menu-bar">
+    <ul>
+      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="pro.html">Login</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="main.html">Next</a></li>
+    </ul>
+  </div>
+  <div class="container">
+    <h1>Fish Pesticide Prediction</h1>
+    <label for="pesticideLevel">Enter Pesticide Level:</label>
+    <input type="number" id="pesticideLevel" placeholder="Enter pesticide level in ppm">
+    <button onclick="predictPesticide()">Predict</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function predictPesticide() {
+      var pesticideLevel = parseFloat(document.getElementById("pesticideLevel").value);
+      var resultElement = document.getElementById("result");
+
+      if (isNaN(pesticideLevel)) {
+        resultElement.textContent = "Please enter a valid number.";
+        return;
+      }
+
+      var prediction = pesticideLevel > 5 ? "High pesticide level detected." : "Pesticide level within normal range.";
+
+      resultElement.textContent = prediction;
+    }
+  </script>
+</body>
+</html>
